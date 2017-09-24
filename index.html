@@ -10,11 +10,20 @@
 <body>
 <div class="header">
   <div class="menu">
-    <div class="logo"></div>
+    Piano Roll
   </div>
 </div>
 <div class="navigation">
-
+  <a href="#">
+    <div class="mode">
+      Ionian
+    </div>
+  </a>
+  <a href="#">
+    <div class="mode">
+      Dorian
+    </div>
+  </a>
 </div>
 <div class="main">
   <div class="keyboard">
@@ -27,7 +36,7 @@
         <kbd>E</kbd>
         <span class="sound">Eb</span>
       </div>
-      <div class="emptyKey"></div>
+      <div class="key empty"></div>
       <div data-key="84" class="key sharp">
         <kbd>T</kbd>
         <span class="sound">F#</span>
@@ -40,38 +49,40 @@
         <kbd>U</kbd>
         <span class="sound">Bb</span>
       </div>
-      <div class="emptyKey"></div>
+      <div class="key empty"></div>
     </div>
     <div class="keys">
-      <div data-key="65" class="key">
-        <kbd>A</kbd>
-        <span class="sound">C3</span>
-      </div>
-      <div data-key="83" class="key">
+      <a href="#" onmousedown="_keyDown(65); return false;" onmouseout="_keyUp(65); return false;" onmouseup="_keyUp(65); return false;">
+        <div data-key="65" class="key normal">
+          <kbd>A</kbd>
+          <span class="sound">C3</span>
+        </div>
+      </a>
+      <div data-key="83" class="key normal">
         <kbd>S</kbd>
         <span class="sound">D</span>
       </div>
-      <div data-key="68" class="key">
+      <div data-key="68" class="key normal">
         <kbd>D</kbd>
         <span class="sound">E</span>
       </div>
-      <div data-key="70" class="key">
+      <div data-key="70" class="key normal">
         <kbd>F</kbd>
         <span class="sound">F</span>
       </div>
-      <div data-key="71" class="key">
+      <div data-key="71" class="key normal">
         <kbd>G</kbd>
         <span class="sound">G</span>
       </div>
-      <div data-key="72" class="key">
+      <div data-key="72" class="key normal">
         <kbd>H</kbd>
         <span class="sound">A</span>
       </div>
-      <div data-key="74" class="key">
+      <div data-key="74" class="key normal">
         <kbd>J</kbd>
         <span class="sound">B</span>
       </div>
-      <div data-key="75" class="key">
+      <div data-key="75" class="key normal">
         <kbd>K</kbd>
         <span class="sound">C4</span>
       </div>

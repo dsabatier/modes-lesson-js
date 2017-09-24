@@ -11,27 +11,30 @@ body {
   font-family: sans-serif;
   height: 100vh;
   width: 100vw;
-  background-color: #ccc;
 }
 
 html {
   font-size: 10px;
-  background-color: #333;
+  background-color: #CCC;
+}
+
+.menu {
+  color: #fff;
+  font-size: 4em;
 }
 
 .header {
   display: flex;
   flex:auto;
   height: 10vh;
-  background-color: #1c3c53;
+  background-color: #2F3051;
   align-items: center;
   justify-content: center;
 }
 
 .main {
   display: flex;
-  background-color: #FF5639;
-  height: 60vh;
+  height: 70vh;
   justify-content: center;
   align-items: center;
 }
@@ -39,14 +42,17 @@ html {
 .navigation {
   display: flex;
   flex: 1;
-  height: 20vh;
-  background-color: #cd4028;
+  flex-direction: row;
+  height: 10vh;
+  background-color: #348493;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer {
   display: flex;
   flex: 1;
-  background-color: #1c3c53;
+  background-color: #2F3051;
   height: 10vh;
 }
 
@@ -71,31 +77,24 @@ html {
   width: 10rem;
   text-align: center;
   color: #777;
-  background: #fff;
+}
+
+.normal {
+    background: #fff;
 }
 
 .sharp {
-  background-color: #CCC;
-  color: #777;
+  background-color: #1c3c53;
+  color: #EEE;
 }
 
-.emptyKey {
-  border: .0em;;
-  border-radius: .5rem;
-  margin: .2rem;
-  font-size: 1.5rem;
-  padding: 1rem .5rem;
-  transition: all .07s ease;
-  height: 12em;
-  width: 6rem;
-  text-align: center;
-  color: #fff;
+.empty {
   background-color: rgb(0,0,0,0);
 }
 
 .playing {
   transform: scale(1.2);
-  background-color: #FFA939;
+  background-color: #F4DA98;
 }
 
 kbd {
@@ -107,4 +106,18 @@ kbd {
   font-size: 1.2rem;
   letter-spacing: .1rem;
   color: #999;
+}
+
+.mode {
+  display: flex;
+  height: 6rem;
+  width: 14rem;
+  max-height: 14em;
+  background-color: #fff;
+  border-radius: 2em;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }

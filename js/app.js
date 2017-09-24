@@ -11,28 +11,28 @@ let keysPressed = new Array();
 
 //console.log(modes);
 
-window.addEventListener('keydown', () => _keyDown(event));
+window.addEventListener('keydown', () => _keyDown(event.keyCode));
 
-window.addEventListener('keyup', () => _keyUp(event));
+window.addEventListener('keyup', () => _keyUp(event.keyCode));
 
-function _keyDown(event) {
-  const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
-  const key = document.querySelectorAll(`.key[data-key='${event.keyCode}']`, `.sharpKey[data-key='${event.keyCode}']`);
-  console.log(key);
-  if(audio && !keysPressed.contains(event.keyCode)) {
-    keysPressed.push(event.keyCode);
+function _keyDown(keyCode) {
+  const audio = document.querySelector(`audio[data-key='${keyCode}']`);
+  const key = document.querySelector(`.key[data-key='${keyCode}']`);
+
+  if(audio && !keysPressed.contains(keyCode)) {
+    keysPressed.push(keyCode);
     audio.currentTime = 0;
     audio.play();
-    key[0].classList.add('playing');
+    key.classList.add('playing');
   }
 }
 
-function _keyUp(event) {
-  const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
-  const key = document.querySelectorAll(`.key[data-key='${event.keyCode}']`, `.sharpKey[data-key='${event.keyCode}']`);
-  console.log(key);
+function _keyUp(keyCode) {
+  const audio = document.querySelector(`audio[data-key='${keyCode}']`);
+  const key = document.querySelector(`.key[data-key='${keyCode}']`);
+
   if(audio) {
-    keysPressed.remove(event.keyCode);
-    key[0].classList.remove('playing');
+    keysPressed.remove(keyCode);
+    key.classList.remove('playing');
   }
 }
