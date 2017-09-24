@@ -11,8 +11,14 @@ let keysPressed = new Array();
 
 //console.log(modes);
 
-window.addEventListener('keydown', () => _keyDown(event.keyCode));
 
+window.oncontextmenu = function(event) {
+     event.preventDefault();
+     event.stopPropagation();
+     return false;
+};
+
+window.addEventListener('keydown', () => _keyDown(event.keyCode));
 window.addEventListener('keyup', () => _keyUp(event.keyCode));
 
 function _keyDown(keyCode) {
