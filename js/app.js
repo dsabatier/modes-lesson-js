@@ -17,22 +17,22 @@ window.addEventListener('keyup', () => _keyUp(event));
 
 function _keyDown(event) {
   const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
-  const key = document.querySelector(`.key[data-key='${event.keyCode}']`);
-
+  const key = document.querySelectorAll(`.key[data-key='${event.keyCode}']`, `.sharpKey[data-key='${event.keyCode}']`);
+  console.log(key);
   if(audio && !keysPressed.contains(event.keyCode)) {
     keysPressed.push(event.keyCode);
     audio.currentTime = 0;
     audio.play();
-    key.classList.add('playing');
+    key[0].classList.add('playing');
   }
 }
 
 function _keyUp(event) {
   const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
-  const key = document.querySelector(`.key[data-key='${event.keyCode}']`);
-
+  const key = document.querySelectorAll(`.key[data-key='${event.keyCode}']`, `.sharpKey[data-key='${event.keyCode}']`);
+  console.log(key);
   if(audio) {
     keysPressed.remove(event.keyCode);
-    key.classList.remove('playing');
+    key[0].classList.remove('playing');
   }
 }
