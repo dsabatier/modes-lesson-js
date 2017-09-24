@@ -2,28 +2,37 @@
 // A  W  S  E  D  F  T  G  Y  H  U  J  K
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
-let lastKeyCode = 0;
+const modes = {
+  "ionian": ["C", "D", "E", "F", "G", "A", "B"],
+  "dorian": ["C", "D", "E-flat", "F", "G", "A", "B-flat"]
+}
 
-window.addEventListener('keydown', function(event) {
+let keysPressed = new Array();
+
+//console.log(modes);
+
+window.addEventListener('keydown', () => _keyDown(event));
+
+window.addEventListener('keyup', () => _keyUp(event));
+
+function _keyDown(event) {
   const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
   const key = document.querySelector(`.key[data-key='${event.keyCode}']`);
 
-  if(audio && this.lastKey != event.keyCode) {
-    this.lastKey = event.keyCode;
+  if(audio && !keysPressed.contains(event.keyCode)) {
+    keysPressed.push(event.keyCode);
     audio.currentTime = 0;
     audio.play();
     key.classList.add('playing');
   }
-});
+}
 
-window.addEventListener('keyup', function(event) {
+function _keyUp(event) {
   const audio = document.querySelector(`audio[data-key='${event.keyCode}']`);
   const key = document.querySelector(`.key[data-key='${event.keyCode}']`);
 
   if(audio) {
-    this.lastKey = 0;
-    //audio.pause();
-    //audio.currentTime = 0;
+    keysPressed.remove(event.keyCode);
     key.classList.remove('playing');
   }
-});
+}
