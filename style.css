@@ -8,15 +8,12 @@ dark blue #4584B2
 body {
   margin: 0;
   padding: 0;
-
-  height: 100vh;
-  width: 100vw;
 }
 
 html {
   font-size: 10px;
   background-color: #CCC;
-  font-family: Montserrat, sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 a {
@@ -25,7 +22,7 @@ a {
 }
 
 span {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 .menu {
@@ -36,15 +33,16 @@ span {
 .header {
   display: flex;
   flex:auto;
-  height: 25vh;
+  flex-direction: column;
+  height: 8rem;
   background-color: #2F3051;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .main {
   display: flex;
-  height: 45vh;
+  height: 36rem;;
   justify-content: center;
   align-items: center;
 }
@@ -53,18 +51,21 @@ span {
   display: flex;
   flex: 1;
   flex-direction: row;
-  height: 20vh;
-  background-color: #348493;
+  height: 16rem;
+  background-color: #1c3c53;
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.currentMode {
+  color: #ffc700;
+  transform: scale(1.2);
+}
+
 .footer {
   display: flex;
   flex: 1;
-  background-color: #2F3051;
-  height: 10vh;
 }
 
 .keyboard {
@@ -81,12 +82,12 @@ span {
   font-family: sans-serif;
   border: .0em;
   border-radius: .4rem;
-  margin: .5rem;
+  margin: 1rem;
   font-size: 1.5rem;
-  padding: 1rem .5rem;
+  padding: 1rem 1rem;
   transition: all .07s ease;
   height: 12em;
-  width: 10rem;
+  width: 8rem;
   text-align: center;
   color: #777;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -115,7 +116,7 @@ span {
 kbd {
   display: block;
   font-size: 4rem;
-  font-family: inherit;
+  font-family: Roboto;
 }
 
 .sound {
@@ -128,9 +129,8 @@ kbd {
   transition: all .07s ease;
   display: flex;
   height: 6rem;
-  width: 14rem;
+  padding: 1rem;
   max-height: 14em;
-  background-color: #1c3c53;
   border-radius: .4rem;
   justify-content: center;
   align-items: center;
@@ -140,9 +140,9 @@ kbd {
   text-transform: uppercase;
 }
 
-.currentMode {
-  background-color: #fff;
-  color: #2F3051;
-  transform: scale(1.2);
-
+.title {
+  color: #fff;
+  font-size: 2rem;
+  margin: 4rem;
+  font-family: Roboto;
 }
