@@ -57,6 +57,7 @@ span {
   background-color: #348493;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .footer {
@@ -88,6 +89,7 @@ span {
   width: 10rem;
   text-align: center;
   color: #777;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .normal {
@@ -104,9 +106,10 @@ span {
 }
 
 .playing {
-  transform: scale(1.2);
+  transform: scale(0.9);
   /*background-color: #F4DA98;*/
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0 0 0;
+
 }
 
 kbd {
@@ -122,6 +125,7 @@ kbd {
 }
 
 .mode {
+  transition: all .07s ease;
   display: flex;
   height: 6rem;
   width: 14rem;
@@ -139,6 +143,6 @@ kbd {
 .currentMode {
   background-color: #fff;
   color: #2F3051;
-  transform: scale(1.1);
+  transform: scale(1.2);
 
 }
