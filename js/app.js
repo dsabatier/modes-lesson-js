@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let audioElement = document.createElement("audio");
         audioElement.setAttribute("src", './sounds/Piano/' + modeList[i] +".wav");
         audioElement.setAttribute("data-key", noteSrc.dataKey);
+        audioElement.setAttribute("auto", "auto");
         return audioElement;
       }
 
