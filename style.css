@@ -8,7 +8,7 @@ dark blue #4584B2
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+
   height: 100vh;
   width: 100vw;
 }
@@ -16,6 +16,16 @@ body {
 html {
   font-size: 10px;
   background-color: #CCC;
+  font-family: Montserrat, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #EEE;
+}
+
+span {
+  font-family: sans-serif;
 }
 
 .menu {
@@ -26,7 +36,7 @@ html {
 .header {
   display: flex;
   flex:auto;
-  height: 10vh;
+  height: 25vh;
   background-color: #2F3051;
   align-items: center;
   justify-content: center;
@@ -34,7 +44,7 @@ html {
 
 .main {
   display: flex;
-  height: 70vh;
+  height: 45vh;
   justify-content: center;
   align-items: center;
 }
@@ -43,7 +53,7 @@ html {
   display: flex;
   flex: 1;
   flex-direction: row;
-  height: 10vh;
+  height: 20vh;
   background-color: #348493;
   justify-content: center;
   align-items: center;
@@ -57,7 +67,7 @@ html {
 }
 
 .keyboard {
-
+  font-family: sans-serif;
 }
 
 .keys {
@@ -67,8 +77,9 @@ html {
 }
 
 .key {
-  border: .0em;;
-  border-radius: .5rem;
+  font-family: sans-serif;
+  border: .0em;
+  border-radius: .4rem;
   margin: .5rem;
   font-size: 1.5rem;
   padding: 1rem .5rem;
@@ -94,12 +105,14 @@ html {
 
 .playing {
   transform: scale(1.2);
-  background-color: #F4DA98;
+  /*background-color: #F4DA98;*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 kbd {
   display: block;
   font-size: 4rem;
+  font-family: inherit;
 }
 
 .sound {
@@ -113,11 +126,19 @@ kbd {
   height: 6rem;
   width: 14rem;
   max-height: 14em;
-  background-color: #fff;
-  border-radius: 2em;
+  background-color: #1c3c53;
+  border-radius: .4rem;
   justify-content: center;
   align-items: center;
-  font-size: 2em;
+  font-size: 1.7rem;
   margin-left: .5rem;
   margin-right: .5rem;
+  text-transform: uppercase;
+}
+
+.currentMode {
+  background-color: #fff;
+  color: #2F3051;
+  transform: scale(1.1);
+
 }

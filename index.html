@@ -4,109 +4,63 @@
   <meta charset="UTF-8">
   <title>Piano Roll</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
   <script src="./js/app.js"></script>
   <script src="./js/ext.js"></script>
 </head>
 <body>
-<div class="header">
-  <div class="menu">
-    Piano Roll
+<div id="app">
+  <div class="header">
+
   </div>
-</div>
-<div class="navigation">
-  <a href="#">
-    <div class="mode">
-      Ionian
-    </div>
-  </a>
-  <a href="#">
-    <div class="mode">
-      Dorian
-    </div>
-  </a>
-</div>
-<div class="main">
-  <div class="keyboard">
-    <div class="keys">
-      <div data-key="87" class="key sharp">
-        <kbd>W</kbd>
-        <span class="sound">C#</span>
+  <div class="navigation">
+    <a href="#">
+      <div class="mode" id="ionian">
+        Ionian
       </div>
-      <div data-key="69" class="key sharp">
-        <kbd>E</kbd>
-        <span class="sound">Eb</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="dorian">
+        Dorian
       </div>
-      <div class="key empty"></div>
-      <div data-key="84" class="key sharp">
-        <kbd>T</kbd>
-        <span class="sound">F#</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="phrygian">
+        Phrygian
       </div>
-      <div data-key="89" class="key sharp">
-        <kbd>Y</kbd>
-        <span class="sound">Ab</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="lydian">
+        Lydian
       </div>
-      <div data-key="85" class="key sharp">
-        <kbd>U</kbd>
-        <span class="sound">Bb</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="mixolydian">
+        Mixolydian
       </div>
-      <div class="key empty"></div>
-    </div>
-    <div class="keys">
-      <a href="#" onmousedown="_keyDown(65); return false;" onmouseout="_keyUp(65); return false;" onmouseup="_keyUp(65); return false;">
-        <div data-key="65" class="key normal">
-          <kbd>A</kbd>
-          <span class="sound">C3</span>
-        </div>
-      </a>
-      <div data-key="83" class="key normal">
-        <kbd>S</kbd>
-        <span class="sound">D</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="aeolian">
+        Aeolian
       </div>
-      <div data-key="68" class="key normal">
-        <kbd>D</kbd>
-        <span class="sound">E</span>
+    </a>
+    <a href="#">
+      <div class="mode" id="locrian">
+        Locrian
       </div>
-      <div data-key="70" class="key normal">
-        <kbd>F</kbd>
-        <span class="sound">F</span>
-      </div>
-      <div data-key="71" class="key normal">
-        <kbd>G</kbd>
-        <span class="sound">G</span>
-      </div>
-      <div data-key="72" class="key normal">
-        <kbd>H</kbd>
-        <span class="sound">A</span>
-      </div>
-      <div data-key="74" class="key normal">
-        <kbd>J</kbd>
-        <span class="sound">B</span>
-      </div>
-      <div data-key="75" class="key normal">
-        <kbd>K</kbd>
-        <span class="sound">C4</span>
+    </a>
+  </div>
+  <div class="main">
+    <div class="keyboard" id="keyboard">
+      <div class="keys" id="normalKeys">
+
       </div>
     </div>
   </div>
+
+  <div class="footer">
+
+  </div>
 </div>
-
-<div class="footer">
-
-</div>
-
-  <audio data-key="65" src="sounds/Piano/C3.wav"></audio>
-  <audio data-key="87" src="sounds/Piano/C-sharp.wav"></audio>
-  <audio data-key="83" src="sounds/Piano/D.wav"></audio>
-  <audio data-key="69" src="sounds/Piano/E-flat.wav"></audio>
-  <audio data-key="68" src="sounds/Piano/E.wav"></audio>
-  <audio data-key="70" src="sounds/Piano/F.wav"></audio>
-  <audio data-key="84" src="sounds/Piano/F-sharp.wav"></audio>
-  <audio data-key="71" src="sounds/Piano/G.wav"></audio>
-  <audio data-key="89" src="sounds/Piano/A-flat.wav"></audio>
-  <audio data-key="72" src="sounds/Piano/A.wav"></audio>
-  <audio data-key="85" src="sounds/Piano/B-flat.wav"></audio>
-  <audio data-key="74" src="sounds/Piano/B.wav"></audio>
-  <audio data-key="75" src="sounds/Piano/C4.wav"></audio>
-
 </body>
 </html>
