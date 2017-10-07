@@ -3,21 +3,16 @@
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
 const modes = {
-  "ionian": ["C3", "D", "E", "F", "G", "A", "B", "C4"],
-  "dorian":  ["C3", "D", "E-flat", "F", "G", "A", "B-flat", "C4"],
-  "phrygian": ["C3", "C-sharp", "E-flat", "F", "G", "A-flat", "B", "C4"],
-  "lydian": ["C3", "D", "E", "F-sharp", "G", "A", "B", "C4"],
-  "mixolydian": ["C3", "D", "E", "F", "G", "A", "B-flat", "C4"],
-  "aeolian": ["C3", "D", "E-flat", "F", "G", "A-flat", "B-flat", "C4"],
-  "locrian": ["C3", "C-sharp", "E-flat", "F", "F-sharp", "A-flat", "B-flat", "C4"],
-
-// Phrygian: E, F, G, A, B, C, D, E
-// Lydian: F, G, A, B, C, D, E, F
-// Mixolydian: G, A, B, C, D, E, F, G
-// Aeolian/Natural minor scale: A, B, C, D, E, F, G, A
-// Locrian: B, C, D, E, F, G, A, B
+  "ionian": ["C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4"],
+  "dorian":  ["C3", "D3", "E3-flat", "F3", "G3", "A3", "B3-flat", "C4"],
+  "phrygian": ["C3", "C3-sharp", "E3-flat", "F3", "G3", "A3-flat", "B3", "C4"],
+  "lydian": ["C3", "D3", "E3", "F3-sharp", "G3", "A3", "B3", "C4"],
+  "mixolydian": ["C3", "D3", "E3", "F3", "G3", "A3", "B3-flat", "C4"],
+  "aeolian": ["C3", "D3", "E3-flat", "F3", "G3", "A3-flat", "B3-flat", "C4"],
+  "locrian": ["C3", "C3-sharp", "E3-flat", "F3", "F3-sharp", "A3-flat", "B3-flat", "C4"],
 };
 
+const PIANO_PATH = "./sounds/wav/"
 const keyboardText = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
 const keyCodes = ['65', '83', '68', '70', '71', '72', '74', '75'];
 let currentMode = "ionian";
@@ -58,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const kbdText = keyboardText[i];
 
         if(noteString.indexOf('-flat') !== -1){
-          noteText = noteText.substring(0, 1) + "b";
+          noteText = noteText.substring(0, 1) + "b" + noteText.substring(1,2);
           styleClass = "sharp";
         } else if(noteString.indexOf('-sharp') !== -1){
-          noteText = noteText.substring(0, 1) + "#";
+          noteText = noteText.substring(0, 1) + "#" + + noteText.substring(1,2);
           styleClass = "sharp";
         }
 
@@ -76,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const audioData = function(noteSrc) {
         let audioElement = document.createElement("audio");
-        audioElement.setAttribute("src", './sounds/Piano/' + modeList[i] +".wav");
+        audioElement.setAttribute("src", PIANO_PATH + modeList[i] +".wav");
         audioElement.setAttribute("data-key", noteSrc.dataKey);
         audioElement.setAttribute("auto", "auto");
         return audioElement;
@@ -103,10 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   changeMode(currentMode);
-  // const dorianButton = document.getElementById("dorian");
-  // const ionianButton = document.getElementById("ionian");
-  // dorianButton.addEventListener('click', () => changeMode("dorian"))
-  // ionianButton.addEventListener('click', () => changeMode("ionian"))
 
 }, false);
 
