@@ -2,27 +2,6 @@
 // A  W  S  E  D  F  T  G  Y  H  U  J  K  Up Arrow  Down Arrow
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
-// extensions to mess up our arrays and objects.  not sure how to import these in vanilla js
-Array.prototype.contains = (obj) => {
-  for(i = 0; i < this.length; i++) {
-    if(this[i] == obj) return true;
-  }
-  return false;
-}
-
-Array.prototype.remove = (obj) => {
-  const index = this.indexOf(obj);
-  if(index > -1) this.splice(index, 1);
-}
-
-Array.prototype.rotate = (steps) => {
-  return this.slice(steps, this.length).concat(this.slice(0, steps));
-}
-
-const getKeyByValue = (object, value) => {
-  return Object.keys(object).find(key => object[key] === value);
-}
-
 const notes = [
   "C3",       //0
   "C3-sharp",

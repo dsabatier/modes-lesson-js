@@ -13,3 +13,7 @@ Array.prototype.remove = function(obj) {
 Array.prototype.rotate = function(steps) {
   return this.slice(steps, this.length).concat(this.slice(0, steps));
 }
+
+const getKeyByValue = (object, value) => {
+  return Object.keys(object).find(key => object[key] === value);
+}
