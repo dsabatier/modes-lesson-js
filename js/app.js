@@ -2,37 +2,26 @@
 // A  W  S  E  D  F  T  G  Y  H  U  J  K  Up Arrow  Down Arrow
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
-// const modes = {
-//   "ionian": ["C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4"],
-//   "dorian":  ["C3", "D3", "E3-flat", "F3", "G3", "A3", "B3-flat", "C4"],
-//   "phrygian": ["C3", "C3-sharp", "E3-flat", "F3", "G3", "A3-flat", "B3", "C4"],
-//   "lydian": ["C3", "D3", "E3", "F3-sharp", "G3", "A3", "B3", "C4"],
-//   "mixolydian": ["C3", "D3", "E3", "F3", "G3", "A3", "B3-flat", "C4"],
-//   "aeolian": ["C3", "D3", "E3-flat", "F3", "G3", "A3-flat", "B3-flat", "C4"],
-//   "locrian": ["C3", "C3-sharp", "E3-flat", "F3", "F3-sharp", "A3-flat", "B3-flat", "C4"],
-// };
-
-// extensions to mess up our arrays.  not sure how to import these in vanilla js
-Array.prototype.contains = function(obj) {
+// extensions to mess up our arrays and objects.  not sure how to import these in vanilla js
+Array.prototype.contains = (obj) => {
   for(i = 0; i < this.length; i++) {
     if(this[i] == obj) return true;
   }
   return false;
 }
 
-Array.prototype.remove = function(obj) {
+Array.prototype.remove = (obj) => {
   const index = this.indexOf(obj);
   if(index > -1) this.splice(index, 1);
 }
 
-Array.prototype.rotate = function(steps) {
+Array.prototype.rotate = (steps) => {
   return this.slice(steps, this.length).concat(this.slice(0, steps));
 }
 
-function getKeyByValue(object, value) {
+const getKeyByValue = (object, value) => {
   return Object.keys(object).find(key => object[key] === value);
 }
-
 
 const notes = [
   "C3",       //0
@@ -88,25 +77,16 @@ const modeKeyMapping = {
 };
 
 // gets the point we need to start at given a key signature and mode
-const startPoint = function(note, mode){
+const startPoint = (note, mode) => {
   const noteIndex = notes.indexOf(note);
-  return steps.slice(0, modeSteps[mode]).reduce(function(accum, x){
-    return accum + x;
-  }, noteIndex);
+  return steps.slice(0, modeSteps[mode]).reduce((accum, x) => accum + x, noteIndex);
 }
 
-const createMode = function(keySignature, mode){
+const createMode = (keySignature, mode) => {
   const scaleDegree = startPoint(keySignature, mode)
   let adjustedSteps = steps.rotate(modeSteps[mode])
   adjustedSteps.push(1)
-  return newNotes = adjustedSteps.map(function(step, index){
-    const currentStepSum = adjustedSteps.slice(0, index).reduce(function(accum, x){
-      return accum + x;
-    }, scaleDegree)
-
-    return notes[currentStepSum]
-  });
-
+  return newNotes = adjustedSteps.map((step, index) => notes[adjustedSteps.slice(0, index).reduce((accum, x) => accum + x, scaleDegree)])
 }
 
 const PIANO_PATH = "./sounds/wav/";
@@ -116,35 +96,38 @@ const keyCodes = ['65', '83', '68', '70', '71', '72', '74', '75'];
 let currentMode = "ionian";
 let currentKey = "C3"
 
-document.addEventListener('DOMContentLoaded', function() {
-  const loadKeyboard = function(modeList){
+document.addEventListener('DOMContentLoaded', () => {
+
+  // create a new key element for the keyboard
+  const newKey = (keyType, note, key, dk) => {
+    const newKey = document.createElement("div");
+    const kbd = document.createElement("kbd");
+    const span = document.createElement("span");
+    const keyboardKeyText = document.createTextNode(key); // string to indicate key on pc
+    const noteText = document.createTextNode(note); // string to indicate the note itself
+
+    kbd.appendChild(noteText);
+    newKey.appendChild(kbd);
+    newKey.classList.add('key');
+    newKey.classList.add(keyType);
+    newKey.setAttribute("data-key", dk); // they pc key for this note
+    span.classList.add('sound');
+    span.appendChild(keyboardKeyText);
+    newKey.appendChild(span);
+    return newKey;
+  }
+
+  // create a new keyboard from an array of notes
+  const loadKeyboard = modeList => {
     const keyboard = document.getElementById("keyboard");
-    const bodyNode = document.getElementById("");
     const keysNode = document.getElementById("normalKeys");
     keysNode.innerHTML = "";
 
-    const newKey = function(keyType, note, key, dk){
-      const newKey = document.createElement("div");
-      const kbd = document.createElement("kbd");
-      const span = document.createElement("span");
-      const keyboardKeyText = document.createTextNode(key); // string to indicate key on pc
-      const noteText = document.createTextNode(note); // string to indicate the note itself
-
-      kbd.appendChild(noteText);
-      newKey.appendChild(kbd);
-      newKey.classList.add('key');
-      newKey.classList.add(keyType);
-      newKey.setAttribute("data-key", dk); // they pc key for this note
-      span.classList.add('sound');
-      span.appendChild(keyboardKeyText);
-      newKey.appendChild(span);
-      return newKey;
-    }
-
+    // for each note in the array we pass in create a key
     for(let i = 0; i < modeList.length; i++){
 
-      const note = function(noteString){
-
+      // create a new note object that includes everything we need to build a new key
+      const note = noteString => {
         const dataKey = keyCodes[i];
 
         let noteText = noteString;
@@ -165,10 +148,10 @@ document.addEventListener('DOMContentLoaded', function() {
           'noteText': noteText,
           'styleClass' : styleClass
         }
-
       }
 
-      const audioData = function(noteSrc) {
+      // create audio data element from a note.  leaving this inline for easier access to the array of notes passed in
+      const audioData = noteSrc => {
         let audioElement = document.createElement("audio");
         audioElement.setAttribute("src", PIANO_PATH + modeList[i] +".wav");
         audioElement.setAttribute("data-key", noteSrc.dataKey);
@@ -181,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  const changeMode = function(modeName) {
+  const changeMode = modeName => {
     loadKeyboard(createMode(currentKey, modeName));
     document.getElementById(modeName);
     const oldButton = document.getElementById(currentMode);
@@ -196,19 +179,19 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', () => changeMode(Object.keys(modeSteps)[i]))
   }
 
-  const changeKey = function(newKey) {
+  const changeKey = newKey => {
     currentKey = newKey;
     changeMode(currentMode);
   }
 
-  const arrowKeyDownPress = function(){
+  const arrowKeyDownPress = () => {
     let newIndex = notes.indexOf(currentKey)-1;
     if(newIndex < 0) newIndex = 11
     currentKey = notes[Math.abs(newIndex) % 12];
     changeKey(currentKey)
   }
 
-  const arrowKeyUpPress = function(){
+  const arrowKeyUpPress = () => {
     const newIndex = notes.indexOf(currentKey)+1;
     currentKey = notes[Math.abs(newIndex) % 12];
     changeKey(currentKey)
@@ -218,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let keysPressed = new Array();
 
-  window.oncontextmenu = function(event) {
+  window.oncontextmenu = (event) => {
        event.preventDefault();
        event.stopPropagation();
        return false;
@@ -238,10 +221,10 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('keydown', (event) => _keyDown(event.keyCode));
   window.addEventListener('keyup', (event) => _keyUp(event.keyCode));
 
-  function _keyDown(keyCode) {
+  const _keyDown = keyCode => {
 
-    // explicity keyboard mapping checks
-    if(Object.values(modeKeyMapping).indexOf(keyCode) > -1){
+    // explicit keyboard mapping checks
+    if(Object.values(modeKeyMapping).indexOf(keyCode) > -1){ // check if key is mapped to a mode
       changeMode(getKeyByValue(modeKeyMapping, keyCode));
     } else if(keyCode === 38){
       upArrowButton.classList.add('arrowPressed');
@@ -264,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function _keyUp(keyCode) {
+const _keyUp = keyCode => {
     if(keyCode === 38){
       upArrowButton.classList.remove('arrowPressed');
       return;
@@ -281,6 +264,5 @@ document.addEventListener('DOMContentLoaded', function() {
       key.classList.remove('playing');
     }
   }
-
 
 }, false);
