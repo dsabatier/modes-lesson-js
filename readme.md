@@ -1,8 +1,8 @@
 # Modes Lesson JS
-A vanilla javascript web app to aid in teaching musical modes.  Modes Lesson JS uses the math behind the music theory to build a keyboard made up of a selected mode and key signature.
+A vanilla javascript web app to aid in teaching musical modes.  
 
 ## Objective
-To write a web app using html, css and vanilla javascript that can clarify the concepts behind musical modes.
+To write a web app using html, css and vanilla javascript that can clarify the concepts behind musical modes. Modes Lesson JS uses the math behind the music theory to build a keyboard made up of a selected mode and key signature.
 
 ## Features
 1. Play notes on an interactive keyboard
