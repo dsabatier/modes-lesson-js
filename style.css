@@ -66,10 +66,14 @@ span {
 .footer {
   display: flex;
   flex: 1;
+  justify-content: center;
+  font-family: Roboto, sans-serif;
+  font-size: 1.5rem;
+  color: #666;
 }
 
 .keyboard {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 .keys {
@@ -79,7 +83,7 @@ span {
 }
 
 .key {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
   border: .0em;
   border-radius: .4rem;
   margin: 1rem;
@@ -116,7 +120,7 @@ span {
 kbd {
   display: block;
   font-size: 4rem;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
 }
 
 .sound {
@@ -144,5 +148,30 @@ kbd {
   color: #fff;
   font-size: 2rem;
   margin: 4rem;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
+}
+
+.instructions {
+  display: flex;
+  height: 4rem;
+  width: 8rem;
+  padding: 1rem;
+  max-height: 14em;
+  border-radius: .4rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: #666;
+}
+
+.mediumIcon {
+  height: 4rem;
+  width: 4rem;
+  transition: all .07s ease;
+}
+
+.arrowPressed {
+  transform: scale(1.5);
 }

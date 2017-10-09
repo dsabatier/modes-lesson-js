@@ -1,5 +1,5 @@
-// 65 87 83 69 68 70 84 71 89 72 85 74 75
-// A  W  S  E  D  F  T  G  Y  H  U  J  K
+// 65 87 83 69 68 70 84 71 89 72 85 74 75 38        40
+// A  W  S  E  D  F  T  G  Y  H  U  J  K  Up Arrow  Down Arrow
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
 // const modes = {
@@ -27,6 +27,10 @@ Array.prototype.remove = function(obj) {
 
 Array.prototype.rotate = function(steps) {
   return this.slice(steps, this.length).concat(this.slice(0, steps));
+}
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
 }
 
 
@@ -57,6 +61,8 @@ const notes = [
   "B4"
 ];
 
+const keySignatureOptions = notes.slice(0, 12)
+
 // ionian mode steps (2 = W, 1 = H)
 const steps = [2, 2, 1, 2, 2, 2, 1];
 
@@ -69,6 +75,16 @@ const modeSteps = {
   "mixolydian": 4,
   "aeolian": 5,
   "locrian": 6
+};
+
+const modeKeyMapping = {
+  "ionian": 49,
+  "dorian": 50,
+  "phrygian": 51,
+  "lydian": 52,
+  "mixolydian": 53,
+  "aeolian": 54,
+  "locrian": 55
 };
 
 // gets the point we need to start at given a key signature and mode
@@ -87,28 +103,26 @@ const createMode = function(keySignature, mode){
     const currentStepSum = adjustedSteps.slice(0, index).reduce(function(accum, x){
       return accum + x;
     }, scaleDegree)
-    console.log(currentStepSum)
+
     return notes[currentStepSum]
   });
 
 }
 
-
-
 const PIANO_PATH = "./sounds/wav/";
 const keyboardText = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
 const keyCodes = ['65', '83', '68', '70', '71', '72', '74', '75'];
 
-// set the starting mode
 let currentMode = "ionian";
+let currentKey = "C3"
 
 document.addEventListener('DOMContentLoaded', function() {
-
   const loadKeyboard = function(modeList){
     const keyboard = document.getElementById("keyboard");
     const bodyNode = document.getElementById("");
     const keysNode = document.getElementById("normalKeys");
     keysNode.innerHTML = "";
+
     const newKey = function(keyType, note, key, dk){
       const newKey = document.createElement("div");
       const kbd = document.createElement("kbd");
@@ -168,8 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   const changeMode = function(modeName) {
-    loadKeyboard(createMode("C3", modeName));
-
+    loadKeyboard(createMode(currentKey, modeName));
     document.getElementById(modeName);
     const oldButton = document.getElementById(currentMode);
     oldButton.classList.remove("currentMode");
@@ -183,43 +196,91 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', () => changeMode(Object.keys(modeSteps)[i]))
   }
 
+  const changeKey = function(newKey) {
+    currentKey = newKey;
+    changeMode(currentMode);
+  }
+
+  const arrowKeyDownPress = function(){
+    let newIndex = notes.indexOf(currentKey)-1;
+    if(newIndex < 0) newIndex = 11
+    currentKey = notes[Math.abs(newIndex) % 12];
+    changeKey(currentKey)
+  }
+
+  const arrowKeyUpPress = function(){
+    const newIndex = notes.indexOf(currentKey)+1;
+    currentKey = notes[Math.abs(newIndex) % 12];
+    changeKey(currentKey)
+  }
+
   changeMode(currentMode);
 
+  let keysPressed = new Array();
+
+  window.oncontextmenu = function(event) {
+       event.preventDefault();
+       event.stopPropagation();
+       return false;
+  };
+
+  const upArrowButton = document.getElementById('up-arrow')
+  const downArrowButton = document.getElementById('down-arrow')
+
+  upArrowButton.addEventListener('click', () => {
+    arrowKeyUpPress();
+  })
+
+  downArrowButton.addEventListener('click', () => {
+    arrowKeyDownPress();
+  })
+
+  window.addEventListener('keydown', (event) => _keyDown(event.keyCode));
+  window.addEventListener('keyup', (event) => _keyUp(event.keyCode));
+
+  function _keyDown(keyCode) {
+
+    // explicity keyboard mapping checks
+    if(Object.values(modeKeyMapping).indexOf(keyCode) > -1){
+      changeMode(getKeyByValue(modeKeyMapping, keyCode));
+    } else if(keyCode === 38){
+      upArrowButton.classList.add('arrowPressed');
+      arrowKeyUpPress();
+      return;
+    } else if (keyCode == 40){
+      downArrowButton.classList.add('arrowPressed');
+      arrowKeyDownPress();
+      return;
+    } else {
+      const audio = document.querySelector(`audio[data-key='${keyCode}']`);
+      const key = document.querySelector(`.key[data-key='${keyCode}']`);
+
+      if(audio && !keysPressed.contains(keyCode)) {
+        keysPressed.push(keyCode);
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+      }
+    }
+  }
+
+  function _keyUp(keyCode) {
+    if(keyCode === 38){
+      upArrowButton.classList.remove('arrowPressed');
+      return;
+    } else if (keyCode == 40){
+      downArrowButton.classList.remove('arrowPressed');
+      return;
+    }
+
+    const audio = document.querySelector(`audio[data-key='${keyCode}']`);
+    const key = document.querySelector(`.key[data-key='${keyCode}']`);
+
+    if(audio) {
+      keysPressed.remove(keyCode);
+      key.classList.remove('playing');
+    }
+  }
+
+
 }, false);
-
-
-
-let keysPressed = new Array();
-
-window.oncontextmenu = function(event) {
-     event.preventDefault();
-     event.stopPropagation();
-     return false;
-};
-
-window.addEventListener('keydown', (event) => _keyDown(event.keyCode));
-window.addEventListener('keyup', (event) => _keyUp(event.keyCode));
-
-
-
-function _keyDown(keyCode) {
-  const audio = document.querySelector(`audio[data-key='${keyCode}']`);
-  const key = document.querySelector(`.key[data-key='${keyCode}']`);
-
-  if(audio && !keysPressed.contains(keyCode)) {
-    keysPressed.push(keyCode);
-    audio.currentTime = 0;
-    audio.play();
-    key.classList.add('playing');
-  }
-}
-
-function _keyUp(keyCode) {
-  const audio = document.querySelector(`audio[data-key='${keyCode}']`);
-  const key = document.querySelector(`.key[data-key='${keyCode}']`);
-
-  if(audio) {
-    keysPressed.remove(keyCode);
-    key.classList.remove('playing');
-  }
-}
