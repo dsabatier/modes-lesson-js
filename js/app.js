@@ -26,7 +26,19 @@ const notes = [
   "A4-flat",  //20
   "A4",
   "B4-flat",
-  "B4"
+  "B4",
+  "C5",
+  "C5-sharp",
+  "D5",
+  "E5-flat",  //15
+  "E5",
+  "F5",
+  "F5-sharp",
+  "G5",
+  "A5-flat",  //20
+  "A5",
+  "B5-flat",
+  "B5"
 ];
 
 const keySignatureOptions = notes.slice(0, 12)
