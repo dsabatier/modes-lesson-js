@@ -112,14 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // prepare strings to switch no  matter if its sharp or flat
   const noteStringObj = function(noteName){
     if(noteName.indexOf("-sharp") > -1){
-      console.log(notes[(notes.indexOf(noteName)+1)%notes.length].substring(0, 2) + "b")
       return {
         "name":noteName.slice(0, 1) +"#"+noteName.slice(1,2),
         "sharp":noteName.substring(0, 2) + "#",
         "flat":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0, 2) + "b"
       }
     } else if(noteName.indexOf("-flat") > -1){
-      console.log(notes[(notes.indexOf(noteName)-1)%notes.length].substring(0, 2)+"#")
       return {
         "name":noteName.slice(0, 1) +"b"+ noteName.slice(1,2),
         "sharp":notes[(notes.indexOf(noteName)-1)%notes.length].substring(0, 2)+"#",
