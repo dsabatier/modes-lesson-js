@@ -113,21 +113,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const noteStringObj = function(noteName){
     if(noteName.indexOf("-sharp") > -1){
       return {
-        "name":noteName.slice(0, 1) +"#"+noteName.slice(1,2),
-        "sharp":noteName.substring(0, 2) + "#",
-        "flat":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0, 2) + "b"
+        "name": noteName.substring(0,1) +"#"+noteName.substring(1,2),
+        "sharp":noteName.substring(0,1) +"#"+noteName.substring(1,2),
+        "flat":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0,1) +"b"+ notes[(notes.indexOf(noteName)+1)%notes.length].substring(1,2)
       }
     } else if(noteName.indexOf("-flat") > -1){
       return {
-        "name":noteName.slice(0, 1) +"b"+ noteName.slice(1,2),
-        "sharp":notes[(notes.indexOf(noteName)-1)%notes.length].substring(0, 2)+"#",
-        "flat":noteName.substring(0, 2) + "b"
+        "name":noteName.substring(0, 1) +"b"+ noteName.substring(1,2),
+        "sharp":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0,1) +"#"+ notes[(notes.indexOf(noteName)+1)%notes.length].substring(1,2),
+        "flat":noteName.substring(0, 1) +"b"+ noteName.substring(1,2),
       }
     } else {
       return {
         "name":noteName.substring(0, 2)
       }
     }
+  }
+
+  const sharpOrFlatDefault = {
+    "A":"sharp",
+    "B":"sharp",
+    "C":"sharp",
+    "D":"sharp",
+    "E":"sharp",
+    "F":"flat"
   }
 
   // create a new keyboard from an array of notes
