@@ -2,6 +2,7 @@
 // A  W  S  E  D  F  T  G  Y  H  U  J  K  Up Arrow  Down Arrow
 // C3 C# D  Eb E  F  F# G  Ab A  Bb B  C4
 
+
 const notes = [
   "C3",       //0
   "C3-sharp",
@@ -108,36 +109,63 @@ document.addEventListener('DOMContentLoaded', () => {
     return newKey;
   }
 
+  // prepare strings to switch no  matter if its sharp or flat
+  const noteStringObj = function(noteName){
+    if(noteName.indexOf("-sharp") > -1){
+      console.log(notes[(notes.indexOf(noteName)+1)%notes.length].substring(0, 2) + "b")
+      return {
+        "name":noteName.slice(0, 1) +"#"+noteName.slice(1,2),
+        "sharp":noteName.substring(0, 2) + "#",
+        "flat":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0, 2) + "b"
+      }
+    } else if(noteName.indexOf("-flat") > -1){
+      console.log(notes[(notes.indexOf(noteName)-1)%notes.length].substring(0, 2)+"#")
+      return {
+        "name":noteName.slice(0, 1) +"b"+ noteName.slice(1,2),
+        "sharp":notes[(notes.indexOf(noteName)-1)%notes.length].substring(0, 2)+"#",
+        "flat":noteName.substring(0, 2) + "b"
+      }
+    } else {
+      return {
+        "name":noteName.substring(0, 2)
+      }
+    }
+  }
+
   // create a new keyboard from an array of notes
   const loadKeyboard = modeList => {
+
     const keyboard = document.getElementById("keyboard");
     const keysNode = document.getElementById("normalKeys");
     keysNode.innerHTML = "";
 
     // for each note in the array we pass in create a key
     for(let i = 0; i < modeList.length; i++){
-
       // create a new note object that includes everything we need to build a new key
       const note = noteString => {
         const dataKey = keyCodes[i];
-
-        let noteText = noteString;
-        let styleClass = "normal";
         const kbdText = keyboardText[i];
 
-        if(noteString.indexOf('-flat') !== -1){
-          noteText = noteText.substring(0, 1) + "b" + noteText.substring(1,2);
+        let noteText = noteStringObj(noteString).name
+        let styleClass = "normal";
+
+        if(noteString.indexOf('-flat') !== -1 || noteString.indexOf('-sharp') !== -1){
           styleClass = "sharp";
-        } else if(noteString.indexOf('-sharp') !== -1){
-          noteText = noteText.substring(0, 1) + "#" + + noteText.substring(1,2);
-          styleClass = "sharp";
+
+          if(currentKey.indexOf('-flat') !== -1){
+            noteText = noteStringObj(noteString)['flat']
+          } else if(currentKey.indexOf('-sharp') !== -1){
+            noteText = noteStringObj(noteString)['sharp']
+          } else {
+            noteText = noteStringObj(noteString)['sharp']
+          }
         }
 
         return {
           'dataKey': dataKey,
           'keyboardText': kbdText,
           'noteText': noteText,
-          'styleClass' : styleClass
+          'styleClass' : styleClass,
         }
       }
 
