@@ -120,10 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if(noteName.indexOf("-flat") > -1){
       return {
         "name":noteName.substring(0, 1) +"b"+ noteName.substring(1,2),
-        "sharp":notes[(notes.indexOf(noteName)+1)%notes.length].substring(0,1) +"#"+ notes[(notes.indexOf(noteName)+1)%notes.length].substring(1,2),
+        "sharp":notes[(notes.indexOf(noteName)-1)%notes.length].substring(0,1) +"#"+ notes[(notes.indexOf(noteName)-1)%notes.length].substring(1,2),
         "flat":noteName.substring(0, 1) +"b"+ noteName.substring(1,2),
       }
     } else {
+      // need to figure out if this note should be a sharp or flat still, i.e. E# instead of Fas
       return {
         "name":noteName.substring(0, 2)
       }
